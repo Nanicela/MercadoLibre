@@ -23,10 +23,6 @@ app.get('/express_backend', (req, res, next) => { //Line 9
 app.get('/search', async (req, res, next) => { //Line 9
 
   await axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=:${req.query.keyword}&limit=4`).then(resp => {
-
-    console.log(resp.data);
-
     res.send({ success: resp.data }); //Line 10
-
   });
 });
