@@ -12,6 +12,7 @@ function useQuery() {
 
 const Results = () => {
   const [results, setResults] = useState([]);
+  const [category, setCategory] = useState([]);
   let query = useQuery();
   useEffect(() => {
     axios.get('http://localhost:3001/search', {
@@ -24,11 +25,9 @@ const Results = () => {
       const items = res.data.items
       let mostRepeatedCategory = ""
       let counterCategories = 0
-      let products = {}
       for (const position in items) {
         const prod = items.filter((product) => product.category_id === items[position].category_id)
         if (prod.length > counterCategories) {
-          products = prod
           counterCategories = prod.length
           mostRepeatedCategory = items[position].category_id
         }
@@ -39,11 +38,8 @@ const Results = () => {
         nameCategory = category[position].name
       }
 
-      //categoria a mostrar y productos con esa categoria.
-      console.log(nameCategory)
-      console.log(products)
-
       setResults(items)
+      setCategory(nameCategory)
     }).catch(err => {
       console.log(err)
     })
@@ -51,7 +47,7 @@ const Results = () => {
 
   return (
     <>
-      <BreadCrumb />
+      <BreadCrumb items={results} category={category}/>
       {results.map(item => (
         <ProductPreview product={item} key={item.id}></ProductPreview>
       ))}
