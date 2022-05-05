@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "../assets/Logo_ML.png"
 import search from "../assets/ic_Search.png"
-import { BreadCrumb } from "./../components/BreadCrumb";
 
 import { Navbar, Form, FormControl, InputGroup, Row, Col, Button } from 'react-bootstrap';
 
@@ -58,11 +57,6 @@ class Header extends React.Component {
             </Col>
           </Row>
         </Navbar>
-        <Row>
-          <Col md={10} className="mx-auto">
-            <BreadCrumb />
-          </Col>
-        </Row>
       </>
     );
 

@@ -18,8 +18,8 @@ export const ProductDetails = (props) => {
             </Col>
             <Col className="bg-white" md={3} >
               <p style={{ fontSize: '14px', marginTop: '32px', marginBottom: '16px' }}>{prod.condition} - {prod.sold_quantity} vendidos</p>
-              <h1 style={{ fontSize: '24px', marginBottom: '32px' }}>{prod.title}</h1>
-              <h1 style={{ fontSize: '46px', marginBottom: '32px' }}> {new Intl.NumberFormat(`es-${prod.country_id}`, { style: 'currency', currency: prod.currency, maximumFractionDigits: 0}).format(prod.price.amount)}</h1>
+              <h1 style={{ fontSize: '24px', marginBottom: '32px' }} itemProp="name">{prod.title}</h1>
+              <h1 style={{ fontSize: '46px', marginBottom: '32px' }} itemScope itemType="https://schema.org/Offer" itemProp="price"> {new Intl.NumberFormat(`es-${prod.country_id}`, { style: 'currency', currency: prod.currency, maximumFractionDigits: 0}).format(prod.price.amount)}</h1>
               <div className="d-grid" style={{ marginRight: '32px' }}> <Button> Comprar </Button> </div>
             </Col>
           </Row>

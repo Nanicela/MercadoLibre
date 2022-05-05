@@ -39,16 +39,24 @@ app.get('/search', async (req, res, next) => { //Line 9
         "condition": prod.condition,
         "free_shipping": prod.shipping.free_shipping,
         "address": prod.address,
-        "country_id": prod.seller_address.country.id
+        "country_id": prod.seller_address.country.id,
+        "category_id": prod.category_id
       })
     }
-    const categories = response.available_filters.filter(function (nickname) { return nickname.id == 'category'; });
+    let categories = response.available_filters.filter(function (nickname) { return nickname.id == 'category'; })
+    if(categories.length === 0){
+      categories = response.filters.filter(function (nickname) { return nickname.id == 'category'; });
+    }
+    let category = {}
+    for(const position in categories){
+      category = categories[position].values
+    }
     const result = {
       author: {
         name: "Daniela",
         lastname: "Olea"
       },
-      categories: categories,
+      categories: category,
       items: items
     }
     res.send(result); //Line 10
