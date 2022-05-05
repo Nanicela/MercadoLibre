@@ -2,7 +2,7 @@
 
 ### Configuración
 
-Mercado libre utiliza Node.js, NPM, Express, axios, Bootstrap React, por lo que deben instalarse de manera global.
+Mercado libre utiliza Node.js, NPM, Express, axios y Bootstrap React.
 
 # Instalar dependencias
 $ npm i
