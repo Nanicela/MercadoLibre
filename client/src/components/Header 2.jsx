@@ -2,6 +2,8 @@ import React from "react";
 import logo from "../assets/Logo_ML.png"
 import search from "../assets/ic_Search.png"
 import { BreadCrumb } from "./../components/BreadCrumb";
+import axios from "axios";
+import ProductPreview from './../components/ProductPreview'
 
 import { Navbar, Form, FormControl, InputGroup, Row, Col, Button } from 'react-bootstrap';
 
@@ -15,12 +17,34 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: '', results: {} };
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleChange(e) {
     this.setState({ value: e.target.value });
   }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.search()
+  }
+
+  search() {
+    axios.get('http://localhost:3001/search', {
+      withCredentials: false,
+      params: {
+        keyword: this.state.value,
+        limit: 4
+      }
+    }).then(res => {
+      this.setState({ results: res.data.success.results })
+    }).catch(err => {
+      console.log(err)
+    })
+  };
 
   render() {
     return (
@@ -38,7 +62,7 @@ class Header extends React.Component {
               </Navbar.Brand>
             </Col>
             <Col md={9} className="d-flex align-items-center">
-              <Form className="w-100">
+              <Form className="w-100" onSubmit={this.handleSubmit}>
                 <InputGroup>
                   <FormControl
                     type="search"
@@ -49,7 +73,7 @@ class Header extends React.Component {
                     value={this.state.value}
                     onChange={this.handleChange}
                   />
-                  <Button style={{background: '#EEEEEE', border: 'none'}} id="btnGroupAddon" type="submit" href={`/items?search=${this.state.value}`}> <img
+                  <Button id="btnGroupAddon" type="submit" value="Submit"> <img
                     src={search}
                     alt="logo"
                   /> </Button>
